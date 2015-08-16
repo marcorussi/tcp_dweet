@@ -43,8 +43,6 @@
 
 #include "../../hal/tmr.h"      /* component timer header file */
 
-//#include "../../hal/port.h"
-
 #include "rtos_cfg.h"           /* component config header file */
 #include "rtos.h"               /* component header file */
 

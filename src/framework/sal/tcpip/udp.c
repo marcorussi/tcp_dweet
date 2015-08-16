@@ -313,9 +313,9 @@ EXPORTED UDP_keOpResult UDP_SendDataBuffer(UDP_keSocketNum unSocketNum, uint8 *p
             UPDATE_HDR_CHECKSUM(pui32HdrWords, ui16Checksum);
 /*
             // example of options
-            uint8 pippo[] = "fakeoptions";
+            uint8 fakeopt[] = "fakeoptions";
             stIPv4PacketDscpt.stOptions.bSendOptions = B_TRUE;
-            stIPv4PacketDscpt.stOptions.pui8OptionDataPtr = pippo;
+            stIPv4PacketDscpt.stOptions.pui8OptionDataPtr = fakeopt;
             stIPv4PacketDscpt.stOptions.ui8OptionLength = 11;
             stIPv4PacketDscpt.stOptions.unOptionType.stOptionType.copiedFlag = 1;
             stIPv4PacketDscpt.stOptions.unOptionType.stOptionType.optionClass = 2;

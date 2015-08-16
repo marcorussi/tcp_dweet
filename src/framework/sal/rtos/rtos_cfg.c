@@ -51,6 +51,7 @@
 #include "../tcpip/ipv4.h"              /* component IPv4 header file */
 #include "../tcpip/icmp.h"              /* component ICMP header file */
 #include "../tcpip/dhcp.h"              /* component DHCP header file */
+#include "../tcpip/tcp.h"               /* component TCP header file */
 
 #include "../../../app/app_dweet.h"     /* component DWEET application header file */
 
@@ -64,8 +65,8 @@ static task_ptr_t const initState_ap[] =
 {
     &OUTCH_Init,
     &INCH_Init,
-    /* ATTENTION: ETHMAC_Init, IPV4_Init and DHCP_Init functions are called by APP_UDP_Init */
-//    &APP_UDP_Init,
+    /* ATTENTION: ETHMAC_Init, IPV4_Init and DHCP_Init functions are called by APP_DWEET_Init */
+    &APP_DWEET_Init,
     NULL_PTR
 };
 
@@ -79,7 +80,8 @@ static task_ptr_t const normalState_ap[] =
     &IPV4_PeriodicTask,
     &ICMP_PeriodicTask,
     &DHCP_PeriodicTask,
-//    &APP_UDP_PeriodicTask,
+    &TCP_PeriodicTask,
+    &APP_DWEET_PeriodicTask,
     NULL_PTR
 };
 

@@ -40,6 +40,7 @@
 
 #include "../framework/hal/port.h"
 #include "../framework/sal/dio/inch.h"
+#include "../framework/sal/dio/outch.h"
 #include "../framework/sal/rtos/rtos.h"
 #include "../framework/sal/tcpip/tcp.h"
 #include "../framework/sal/tcpip/dhcp.h"
@@ -71,17 +72,11 @@
 /* ON/OFF switch button */
 #define ON_OFF_PUSH_BUTTON_CH           (INCH_KE_CHANNEL_2)
 
-/* ON/OFF LED port ID */
-#define ON_OFF_LED_PORT_ID              (PORT_ID_D)
-
 /* ON/OFF LED port pin ID */
-#define ON_OFF_LED_PIN_ID               (PORT_PIN_1)
-
-/* TEST LED port ID */
-#define TEST_LED_PORT_ID                (PORT_ID_D)
+#define ON_OFF_LED_OUT_CH               (OUTCH_KE_CHANNEL_2)
 
 /* TEST LED port pin ID */
-#define TEST_LED_PIN_ID                 (PORT_PIN_0)
+#define TEST_LED_OUT_CH                 (OUTCH_KE_CHANNEL_1)
 
 
 
@@ -263,7 +258,7 @@ EXPORTED void APP_DWEET_PeriodicTask( void )
                 checkDweetResponse(pui8RXDataBufPtr);
 
                 /* trigger next request later */
-                RTOS_SetCallback(PERIODIC_REQ_CALLBACK_ID, RTOS_CB_TYPE_SINGLE, 2000, &triggerNextReqInfoCallBack);
+                RTOS_SetCallback(PERIODIC_REQ_CALLBACK_ID, RTOS_CB_TYPE_SINGLE, 1000, &triggerNextReqInfoCallBack);
 
                 /* go into KE_WAIT_NEXT_REQ_STATE state */
                 enConnStatus = KE_WAIT_NEXT_REQ_STATE;
@@ -363,7 +358,7 @@ LOCAL void manageAppButton ( void )
             /* turn dweet app ON */
             bDweetAppConnectionReq = B_TRUE;
             /* set related LED */
-            PORT_SetPortPin(ON_OFF_LED_PORT_ID, ON_OFF_LED_PIN_ID);
+            OUTCH_SetChannelStatus(ON_OFF_LED_OUT_CH, OUTCH_KE_CH_TURN_ON);
         }
         /* else dweet app is already ON */
         else
@@ -371,7 +366,7 @@ LOCAL void manageAppButton ( void )
             /* turn dweet app OFF */
             bDweetAppConnectionReq = B_FALSE;
             /* clear related LED */
-            PORT_ClearPortPin(ON_OFF_LED_PORT_ID, ON_OFF_LED_PIN_ID);
+            OUTCH_SetChannelStatus(ON_OFF_LED_OUT_CH, OUTCH_KE_CH_TURN_OFF);
         }
     }
     else
@@ -401,12 +396,12 @@ LOCAL void checkDweetResponse(uint8 *pui8Buffer)
         if(strstr(&read_value[0], &value1[0]))
         {
             ui8ResultValue = 1;
-            PORT_ClearPortPin(TEST_LED_PORT_ID, TEST_LED_PIN_ID);
+            OUTCH_SetChannelStatus(TEST_LED_OUT_CH, OUTCH_KE_CH_TURN_OFF);
         }
         else if(strstr(&read_value[0], &value2[0]))
         {
             ui8ResultValue = 2;
-            PORT_SetPortPin(TEST_LED_PORT_ID, TEST_LED_PIN_ID);
+            OUTCH_SetChannelStatus(TEST_LED_OUT_CH, OUTCH_KE_CH_TURN_ON);
         }
         else
         {
