@@ -24,4 +24,5 @@ The refresh time could be configured as all other parameters.
 This project is just an IoT "experiment" so your help is appreciate!
 
 Known issues:
+- Ethernet layer remains stacked until an Ethernet cable is connected. It is necessary to add a timeout in order to exit the related infinite loop in eth.c file.
 - Sometime connection is not closed successfully: final ACK is not sent.
