@@ -1,6 +1,7 @@
 # tcp_dweet
 Let's dweet! A simple TCP/IP stack (TCP client only) and a dweet.io demo application built on top
-of my PIC32 framework.
+of my PIC32 framework. 
+This demo project runs over PIC32 Ethernet Starter Kit connected to my Ubuntu laptop through an Ethernet switch.
 
 This simple TCP client has been developed for establishing a connection with
 dweet.io in order to exchange two values between a PIC32 Ethernet Starter Kit
